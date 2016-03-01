@@ -27,6 +27,10 @@ public class VatClinic {
         String newName=name.replace('T', 'K');
         System.out.println(newName);
 
+
+
+
+
         /* catTom.vaccines[0] = "ASCC";
          vaccinate(catTom);
          System.out.println(Arrays.toString(catTom.vaccines));
