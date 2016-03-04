@@ -1,9 +1,9 @@
 package lesson5;
-
+/*
 public class RectangleExample {
     public static void main(String[] args) {
-        Rectangle firstRectangle = new Rectangle();
-
+     //   Rectangle firstRectangle = new Rectangle();
+/*
         firstRectangle.setHeight(2);
         firstRectangle.with = 3;
         firstRectangle.area = 6;
@@ -41,16 +41,14 @@ public class RectangleExample {
         System.out.println(firstRectangle);
 
 
-        Rectangle anotherRectangle = new Rectangle(firstRectangle.with,firstRectangle.height);
+        Rectangle anotherRectangle = new Rectangle(firstRectangle.with, firstRectangle.height);
         //anotherRectangle.with = firstRectangle.with;
         //anotherRectangle.height = firstRectangle.height;
 
-        System.out.println("another rectangle "+anotherRectangle.toString());
-        System.out.println(firstRectangle==secondRectangle);
-      //  System.out.println(firstRectangle.equals(firstRectangle,anotherRectangle));
-         System.out.println(firstRectangle.equals(anotherRectangle));
-
-
+        System.out.println("another rectangle " + anotherRectangle.toString());
+        System.out.println(firstRectangle == secondRectangle);
+        //  System.out.println(firstRectangle.equals(firstRectangle,anotherRectangle));
+        System.out.println(firstRectangle.equals(anotherRectangle));
 
 
         Rectangle thirdRectangle = null;
@@ -69,4 +67,4 @@ public class RectangleExample {
         return rectangle.height * rectangle.with;
     }
 
-}
+}*/
