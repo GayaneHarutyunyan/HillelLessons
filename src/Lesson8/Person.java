@@ -1,20 +1,23 @@
 package Lesson8;
 
-/**
- * Created by User on 04.03.2016.
- */
-public class Person {
+import java.util.Objects;
+
+public class Person extends Objects {
     private String name;
 
     public String getName() {
         return name.toUpperCase();
     }
-
     public void setName(String name) {
         this.name = name;
     }
-    public void greeting(){
+    public void greeting() {
         System.out.println("Hello, I'm person my name is " + getName());
     }
+    @Override
+    public boolean equals(Objects o) {
+        if(!(o instanceof Person))
+        return this.getName().equals(other.getName());
 
+    }
 }

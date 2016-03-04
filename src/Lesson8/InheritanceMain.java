@@ -1,5 +1,7 @@
 package Lesson8;
 
+import java.util.Objects;
+
 public class InheritanceMain {
     public static void main(String[] args) {
 
@@ -49,13 +51,20 @@ public class InheritanceMain {
         System.out.println(person.getName());
         System.out.println(manager.getName());
         System.out.println(employee.getName());
-
+        Objects o=new Employee();
+        o="hasj";
     }
 
     public static void speek(Person person) {
         person.greeting();
     }
+    @Override
+    public boolean equals(Objects o){
+        return this.getName().equals(o.getName());
+
+    }
 }
+
     /*
         //если поле публичнный  сработает
         Employee employee1=new Employee();
