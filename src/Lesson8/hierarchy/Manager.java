@@ -1,4 +1,4 @@
-package Lesson8;
+package Lesson8.hierarchy;
 
 /**
  * Created by User on 04.03.2016.

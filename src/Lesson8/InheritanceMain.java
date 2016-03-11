@@ -1,5 +1,9 @@
 package Lesson8;
 
+import Lesson8.hierarchy.Employee;
+import Lesson8.hierarchy.Manager;
+import Lesson8.hierarchy.Person;
+
 import java.util.Objects;
 
 public class InheritanceMain {
@@ -45,25 +49,40 @@ public class InheritanceMain {
         Person somebody = person;
         somebody.greeting();
         */
-        speek(person);
-        speek(employeeAsPerson);
-        speek(manager);
+
+        Person somebody = manager;
+        somebody.greeting();
+
+        speak(person);
+        speak(employeeAsPerson);
+        speak(manager);
+
+
+        /*Employee employee1 = new Employee();
+        employee1.name = "Ivan";
+        printName(employee1);*/
+
         System.out.println(person.getName());
-        System.out.println(manager.getName());
         System.out.println(employee.getName());
-        Objects o=new Employee();
-        o="hasj";
+        System.out.println(manager.getName());
+
+        Object o = new Employee();
+        o = "SDF";
+
     }
 
-    public static void speek(Person person) {
+    /*public static void printName(Person person){
+        System.out.println("name is " + person.name);
+    }*/
+
+
+    public static void speak(Person person){
         person.greeting();
     }
-    @Override
-    public boolean equals(Objects o){
-        return this.getName().equals(o.getName());
 
-    }
+
 }
+
 
     /*
         //если поле публичнный  сработает
