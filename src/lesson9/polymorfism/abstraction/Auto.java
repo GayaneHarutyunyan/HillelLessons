@@ -1,6 +1,6 @@
 package lesson9.polymorfism.abstraction;
 
-public class Auto {
+public abstract class Auto {
     int year;
 
     public Auto(int year) {

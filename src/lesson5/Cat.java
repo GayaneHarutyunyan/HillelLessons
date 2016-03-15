@@ -1,6 +1,6 @@
 package lesson5;
 
-public class Cat {
+public class Cat implements Comparable {
     private String color;
     private String name;
     private int birthYear;
@@ -44,5 +44,21 @@ public class Cat {
 
     public int getBirthYear() {
         return birthYear;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Cat other = (Cat) o;
+
+        if (birthYear > other.birthYear) {
+            return -1;
+        } else if (birthYear < other.birthYear) {
+
+            return 1;
+        }
+        return 0;
+
+        //return  other.birthYear-birthYear;
+
     }
 }
