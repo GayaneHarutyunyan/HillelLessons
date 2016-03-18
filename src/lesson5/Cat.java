@@ -58,6 +58,15 @@ public class Cat implements Comparable {
         }
         return 0;
 
+
+      /* // @Override
+                public String toString(){
+            return "Cat("+
+                    "birthYear"+birthYear+
+                    "vaccines"+vaccines;
+
+        }
+*/
         //return  other.birthYear-birthYear;
 
     }
