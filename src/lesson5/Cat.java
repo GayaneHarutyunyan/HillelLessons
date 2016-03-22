@@ -8,24 +8,13 @@ public class Cat implements Comparable {
     private int vaccineCount;
 
     public Cat(String name, String color, int birthYear) {
-        //System.out.println(" cat is creating ");
-        // vaccines = new String[10];
         this.name = name;
         this.color = color;
         this.birthYear = birthYear;
-        // System.out.println("Cat created");
     }
 
-    /**
-     * public void init(String name, String color, int birthYear) {
-     * vaccines = new String[10];
-     * this.name = name;
-     * this.color = color;
-     * this.birthYear = birthYear;
-     * }
-     */
     public void meow() {
-        System.out.println("meow");
+        System.out.println("meow!");
     }
 
     public void vaccinate(String vaccine) {
@@ -46,28 +35,50 @@ public class Cat implements Comparable {
         return birthYear;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public int compareTo(Object o) {
         Cat other = (Cat) o;
-
         if (birthYear > other.birthYear) {
-            return -1;
+            return -5;
         } else if (birthYear < other.birthYear) {
-
-            return 1;
+            return 32;
         }
         return 0;
 
+        //return other.birthYear - birthYear;
+    }
 
-      /* // @Override
-                public String toString(){
-            return "Cat("+
-                    "birthYear"+birthYear+
-                    "vaccines"+vaccines;
+    @Override
+    public String toString() {
+        return "Cat{" +
+                "birthYear=" + birthYear +
+                ", name='" + name + '\'' +
+                ", color='" + color + '\'' +
+                '}';
+    }
 
-        }
-*/
-        //return  other.birthYear-birthYear;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        Cat cat = (Cat) o;
+
+        if (birthYear != cat.birthYear) return false;
+        if (!color.equals(cat.color)) return false;
+        return name.equals(cat.name);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = color.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + birthYear;
+        return result;
     }
 }

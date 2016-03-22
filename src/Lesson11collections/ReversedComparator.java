@@ -8,16 +8,13 @@ import java.util.Comparator;
 public class ReversedComparator implements Comparator {
 
     private Comparator comparator;
-    public ReversedComparator (Comparator comparator){
-        this.comparator=comparator;
-    }
-   // @Override
-    public int compare(Object o1,Object o2){
-        return comparator.compare(o1,o2);
+
+    public ReversedComparator(Comparator comparator) {
+        this.comparator = comparator;
     }
 
     @Override
-    public Comparator reversed() {
-        return null;
+    public int compare(Object o1, Object o2) {
+        return comparator.compare(o1, o2) * -1;
     }
 }
