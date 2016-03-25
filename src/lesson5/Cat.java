@@ -1,5 +1,7 @@
 package lesson5;
 
+import java.util.Arrays;
+
 public class Cat implements Comparable {
     private String color;
     private String name;
@@ -61,6 +63,33 @@ public class Cat implements Comparable {
                 '}';
     }
 
+
+
+    /**
+     *
+     @Override
+     public boolean equals(Object o) {
+     if (this == o) return true;
+     if (o == null || getClass() != o.getClass()) return false;
+
+     Cat cat = (Cat) o;
+
+     if (birthYear != cat.birthYear) return false;
+     if (!color.equals(cat.color)) return false;
+     return name.equals(cat.name);
+
+     }
+
+     @Override
+     public int hashCode() {
+     int result = color.hashCode();
+     result = 31 * result + name.hashCode();
+     result = 31 * result + birthYear;
+     return result;
+     }
+     */
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -69,16 +98,22 @@ public class Cat implements Comparable {
         Cat cat = (Cat) o;
 
         if (birthYear != cat.birthYear) return false;
-        if (!color.equals(cat.color)) return false;
-        return name.equals(cat.name);
+        if (vaccineCount != cat.vaccineCount) return false;
+        if (color != null ? !color.equals(cat.color) : cat.color != null) return false;
+        if (name != null ? !name.equals(cat.name) : cat.name != null) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(vaccines, cat.vaccines);
 
     }
 
     @Override
     public int hashCode() {
-        int result = color.hashCode();
-        result = 31 * result + name.hashCode();
+        int result = color != null ? color.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + birthYear;
+        result = 31 * result + Arrays.hashCode(vaccines);
+        result = 31 * result + vaccineCount;
         return result;
     }
+
 }

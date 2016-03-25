@@ -38,4 +38,12 @@ public class ListElement<C> {
             next.add(o);
         }
     }
+
+    public ListElement<C> getNext() {
+        return next;
+    }
+
+    public Object getValue() {
+        return value;
+    }
 }

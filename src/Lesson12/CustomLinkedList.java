@@ -1,12 +1,15 @@
 package Lesson12;
 
+import Lesson13.iterator.CustomLinkedListIterator;
+
+import java.util.Iterator;
+
 /**
  * Created by User on 22.03.2016.
  */
-public class CustomLinkedList {
+public class CustomLinkedList implements Iterable {
 
     private ListElement next;
-
 
     public int size() {
         if (next == null) {
@@ -21,7 +24,7 @@ public class CustomLinkedList {
     public void add(Object o) {
         if (next == null) {
             next = new ListElement(o);
-        }else{
+        } else {
             next.add(o);
         }
     }
@@ -30,7 +33,12 @@ public class CustomLinkedList {
         if (next == null) {
             return null;
         } else {
-          return next.get(index);
+            return next.get(index);
         }
+    }
+
+    @Override
+    public Iterator iterator() {
+        return new CustomLinkedListIterator(next);
     }
 }
