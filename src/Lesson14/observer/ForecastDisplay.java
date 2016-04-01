@@ -6,7 +6,7 @@ import java.util.Random;
  * Created by User on 29.03.2016.
  */
 
-public class ForecastDisplay {
+public class ForecastDisplay implements Observer{
     private int temperature;
     private int humidity;
     private int pressure;

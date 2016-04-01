@@ -3,7 +3,7 @@ package Lesson14.observer;
 /**
  * Created by User on 29.03.2016.
  */
-public class CurrentDisplay {
+public class CurrentDisplay implements Observer{
     private int temperature;
     private int humidity;
     private int pressure;
