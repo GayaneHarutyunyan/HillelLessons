@@ -3,18 +3,26 @@ package Lesson14.observer;
 /**
  * Created by User on 29.03.2016.
  */
+
 public class WeatherStation {
     private int temperature;
     private int humidity;
     private int pressure;
+
     private CurrentDisplay currentDisplay = new CurrentDisplay();
+    private StatisticDisplay statisticDisplay = new StatisticDisplay();
+    private ForecastDisplay forecastDisplay = new ForecastDisplay();
 
     public void stateChanged() {
-//Оповищать что погодные условия измнились
-
+        //Оповищать что погодные условия измнились
 
         currentDisplay.update(temperature, humidity, pressure);
+        statisticDisplay.update(temperature, humidity, pressure);
+        forecastDisplay.update(temperature, humidity, pressure);
+
         currentDisplay.display();
+        statisticDisplay.display();
+        forecastDisplay.display();
     }
 
     public int getTemperature() {
@@ -33,13 +41,11 @@ public class WeatherStation {
         this.humidity = humidity;
     }
 
-    public int getPressute() {
+    public int getPressure() {
         return pressure;
     }
 
-    public void setPressure(int pressute) {
-        this.pressure = pressute;
+    public void setPressure(int pressure) {
+        this.pressure = pressure;
     }
-
-
 }

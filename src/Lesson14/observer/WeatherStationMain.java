@@ -8,12 +8,13 @@ public class WeatherStationMain {
         WeatherStation station = new WeatherStation();
         station.setTemperature(20);
         station.setHumidity(50);
-        station.setPressure(180);
+        station.setPressure(780);
         station.stateChanged();
 
-        station.setTemperature(30);
-        station.setHumidity(550);
-        station.setPressure(1880);
+        station.setTemperature(25);
+        station.setHumidity(54);
+        station.setPressure(730);
         station.stateChanged();
+
     }
 }

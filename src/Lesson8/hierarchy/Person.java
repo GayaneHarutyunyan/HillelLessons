@@ -7,14 +7,16 @@ import java.util.Objects;
  */
 public class Person extends Object {
     private String name;
-   // @Deprecated
+
+
+    @Deprecated
     public Person() {
 
     }
 
     /**
-     * this constructor creates person vith name
-     * @param name persons name
+     * this constructor creates person with name
+     * @param name person's name
      */
     public Person(String name) {
         this.name = name;
@@ -42,8 +44,12 @@ public class Person extends Object {
     }
 
     @Override
-    public String toString() {
-        return "I'm person, my name is "+name;
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
     }
 
+    @Override
+    public String toString() {
+        return "I'm person, my name is " + getName();
+    }
 }

@@ -6,16 +6,16 @@ package Lesson14.observer;
 public class CurrentDisplay {
     private int temperature;
     private int humidity;
-    private int pressute;
+    private int pressure;
 
     public void display() {
-        System.out.println("temperature: " + temperature + ", humidity: " + humidity + ", pressure" + pressute);
+        System.out.println("temperature: " + temperature + ", humidity: " + humidity + ", pressure: " + pressure);
     }
 
-    public void update(int temperature, int humidity, int pressute) {
+    public void update(int temperature, int humidity, int pressure) {
         this.temperature = temperature;
         this.humidity = humidity;
-        this.pressute = pressute;
-
+        this.pressure = pressure;
     }
+
 }
