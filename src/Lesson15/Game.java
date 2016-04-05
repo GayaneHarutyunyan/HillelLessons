@@ -10,6 +10,6 @@ public class Game {
         ComputerSecretBreaker secretBreaker =new ComputerSecretBreaker (0,100);
         new GameKeeper().startGame(secretKeeper,secretBreaker);
 
-        new GameKeeper().startGame(new HumanSeecretKeeper(0,100),new HumanSeecretBreaker(0,100));
+     //   new GameKeeper().startGame(new HumanSeecretKeeper(0,100),new HumanSeecretBreaker(0,100));
     }
 }

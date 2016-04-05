@@ -3,7 +3,7 @@ package Lesson14.observer;
 /**
  * Created by User on 29.03.2016.
  */
-public class CurrentDisplay implements Observer{
+public class CurrentDisplay implements Observer {
     private int temperature;
     private int humidity;
     private int pressure;
@@ -12,10 +12,11 @@ public class CurrentDisplay implements Observer{
         System.out.println("temperature: " + temperature + ", humidity: " + humidity + ", pressure: " + pressure);
     }
 
-    public void update(int temperature, int humidity, int pressure) {
-        this.temperature = temperature;
-        this.humidity = humidity;
-        this.pressure = pressure;
+    @Override
+    public void update(WeatherStation station) {
+        this.temperature = station.getTemperature();
+        this.humidity = station.getHumidity();
+        this.pressure = station.getPressure();
     }
 
 }

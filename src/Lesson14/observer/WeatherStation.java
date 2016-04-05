@@ -36,7 +36,7 @@ public class WeatherStation {
         //Оповищать что погодные условия измнились
 //интерфейс
         for (Observer observer : observers) {
-            observer.update(temperature, humidity, pressure);
+            observer.update(this);
         }
 
     }
