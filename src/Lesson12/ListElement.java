@@ -25,7 +25,7 @@ public class ListElement<C> {
         } else {
             //ПРОверрка есть ли ссыллка на дрругой объект next это ссылка
             if (next == null) {
-                return null;
+                throw new IndexOutOfBoundsException();
             }
             return next.get(index - 1);
         }

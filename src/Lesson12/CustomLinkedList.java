@@ -1,7 +1,10 @@
 package Lesson12;
 
 import Lesson13.iterator.CustomLinkedListIterator;
+import Lesson17.exception.MyOwnOutOfIndexException;
+import Lesson17.exception.MyOwnOutOfindexException;
 
+import java.util.Calendar;
 import java.util.Iterator;
 
 /**
@@ -29,11 +32,16 @@ public class CustomLinkedList implements Iterable {
         }
     }
 
-    public Object get(int index) {
+    public Object get(int index) throws MyOwnOutOfIndexException {
         if (next == null) {
-            return null;
+            throw new MyOwnOutOfIndexException(" size: " + size() + " index: " + index);
         } else {
-            return next.get(index);
+            try {
+                return next.get(index);
+
+            } catch (IndexOutOfBoundsException e) {
+                throw new IndexOutOfBoundsException(" size: " + size() + " index: " + index);
+            }
         }
     }
 
