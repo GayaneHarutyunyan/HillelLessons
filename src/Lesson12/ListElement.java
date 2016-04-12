@@ -3,9 +3,9 @@ package Lesson12;
 /**
  * Created by User on 22.03.2016.
  */
-public class ListElement<C> {
+public class ListElement {
     private Object value;
-    private ListElement<C> next;
+    private ListElement next;
 
     public ListElement(Object value) {
         this.value = value;
@@ -23,7 +23,6 @@ public class ListElement<C> {
         if (index == 0) {
             return value;
         } else {
-            //ПРОверрка есть ли ссыллка на дрругой объект next это ссылка
             if (next == null) {
                 throw new IndexOutOfBoundsException();
             }
@@ -33,17 +32,17 @@ public class ListElement<C> {
 
     public void add(Object o) {
         if (next == null) {
-            next = new ListElement<C>(o);
+            next = new ListElement(o);
         } else {
             next.add(o);
         }
     }
 
-    public ListElement<C> getNext() {
-        return next;
-    }
-
     public Object getValue() {
         return value;
+    }
+
+    public ListElement getNext() {
+        return next;
     }
 }

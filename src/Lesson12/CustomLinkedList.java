@@ -2,7 +2,7 @@ package Lesson12;
 
 import Lesson13.iterator.CustomLinkedListIterator;
 import Lesson17.exception.MyOwnOutOfIndexException;
-import Lesson17.exception.MyOwnOutOfindexException;
+import Lesson17.exception.MyOwnOutOfIndexException;
 
 import java.util.Calendar;
 import java.util.Iterator;
@@ -18,10 +18,9 @@ public class CustomLinkedList implements Iterable {
         if (next == null) {
             return 0;
         } else {
-            //Если у меня есть ссылка то мооггу гворить
             return next.size();
-
         }
+
     }
 
     public void add(Object o) {
@@ -34,13 +33,12 @@ public class CustomLinkedList implements Iterable {
 
     public Object get(int index) throws MyOwnOutOfIndexException {
         if (next == null) {
-            throw new MyOwnOutOfIndexException(" size: " + size() + " index: " + index);
+            throw new MyOwnOutOfIndexException("size: " + size() + " index: " + index);
         } else {
             try {
                 return next.get(index);
-
             } catch (IndexOutOfBoundsException e) {
-                throw new IndexOutOfBoundsException(" size: " + size() + " index: " + index);
+                throw new MyOwnOutOfIndexException("size: " + size() + " index: " + index);
             }
         }
     }
