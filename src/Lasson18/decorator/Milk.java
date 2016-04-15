@@ -1,7 +1,7 @@
 package Lasson18.decorator;
 
 
-public class Milk extends BeverageDecotor {
+public class Milk extends BeverageDecorator {
 
 
     public Milk(Beverage beverage) {
