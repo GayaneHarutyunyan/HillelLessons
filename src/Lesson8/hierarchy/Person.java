@@ -1,11 +1,12 @@
 package Lesson8.hierarchy;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Created by MBCNEWMAIN on 04.03.2016.
  */
-public class Person extends Object {
+public class Person extends Object implements Serializable {
     private String name;
 
 

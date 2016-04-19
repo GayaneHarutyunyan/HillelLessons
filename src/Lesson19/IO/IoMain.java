@@ -1,26 +1,104 @@
 package Lesson19.IO;
 
 
+import Lesson20.Car;
+import Lesson8.hierarchy.Person;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Properties;
 
 public class IoMain {
 
     public static void main(String[] args) {
-    absoluteAndRelativePaths();
-      //  uglyPriorJava7Style();
-     ///   tryWithResources();
-         //copy();
-     //   readWithCodePage();
-    //    bufferRead();
+        //absoluteAndRelativePaths();
+        //uglyPriorJava7Style();
+        //tryWithResources();
+        //copy();
+        //readWithCodePage();
+        //bufferRead();
         //dataOutputStream();
+        //primitivesExample();
+        //objectExample();
+        propertiesExample();
+
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("myFolder/car.dat"))) {
+            Car myCar = new Car("BNW", 1985, new Person("Vasya"));
+           myCar.setRentor(new Reader("Nikilay"));
+            outputStream.writeObject(myCar);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("myFolder/car.dat"))) {
+            Car myCar = (Car) inputStream.readObject();
+            System.out.println(myCar);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    private static void dataOutputStream() {
-        try (DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream("temp/primitives.dat"))) {
-            dataOutputStream.writeInt(12);
+    private static void propertiesExample() {
+        Properties properties = new Properties();
+        try (FileInputStream inputStream = new FileInputStream("myFolder/setting.property")) {
+            properties.load(inputStream);
+            String db = properties.getProperty("DB");
+            String password = properties.getProperty("password");
+
+            int timeout = Integer.parseInt((properties.getProperty("Timeout")));
+
+            System.out.println(db + " " + password + " " + timeout);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void objectExample() {
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("myFolder/object.dat"))) {
+            int[] date = new int[]{15, 4, 2016};
+            outputStream.writeObject(date);
+            outputStream.writeObject("hello");
+            outputStream.writeObject(2);
+            System.out.println(Arrays.toString(date));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("myFolder/primitives.dat"))) {
+            int[] date = (int[]) inputStream.readObject();
+            String dat = (String) inputStream.readObject();
+
+            System.out.println(dat);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Object readObject() {
+        return new Object();
+    }
+
+    private static void primitivesExample() {
+        try (DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream("myFolder/primitives.dat"))) {
+            dataOutputStream.writeInt(15);
             dataOutputStream.writeInt(4);
             dataOutputStream.writeInt(2016);
             dataOutputStream.writeLong(Long.MAX_VALUE);
@@ -29,15 +107,15 @@ public class IoMain {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try (DataInputStream dataInputStream = new DataInputStream(new FileInputStream("emp/primitives.dat"))) {
+
+        try (DataInputStream dataInputStream = new DataInputStream(new FileInputStream("myFolder/primitives.dat"))) {
             System.out.println(dataInputStream.readInt());
             System.out.println(dataInputStream.readInt());
             System.out.println(dataInputStream.readInt());
+
             System.out.println(dataInputStream.readInt());
             System.out.println(dataInputStream.readInt());
-            System.out.println(dataInputStream.readInt());
-            System.out.println(dataInputStream.readInt());
-            System.out.println(dataInputStream.readInt());
+            //    System.out.println(dataInputStream.readLong());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -45,17 +123,15 @@ public class IoMain {
         }
     }
 
-
-    private static void bufferRead() {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("temp/myFile.txt")))) {
+    private static void bufferedRead() {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("myFolder/myFile.txt"), "windows-1251"))) {
             String value = null;
 
             while ((value = reader.readLine()) != null) {
-                System.out.print(value);
+                System.out.println(value);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -64,8 +140,7 @@ public class IoMain {
     }
 
     private static void readWithCodePage() {
-        try (InputStreamReader reader = new InputStreamReader(new FileInputStream("temp/myFile.txt"), "windows-1251")) {
-
+        try (InputStreamReader reader = new InputStreamReader(new FileInputStream("myFolder/myFile.txt"), "windows-1251")) {
             int value = 0;
             while ((value = reader.read()) != -1) {
                 System.out.print((char) value);
@@ -76,6 +151,17 @@ public class IoMain {
     }
 
     private static void copy() {
+        try (InputStream inputStream = new FileInputStream("myFolder/myFile.txt");
+             OutputStream outputStream = new FileOutputStream("myFolder/myFile_copy.txt")) {
+            int value;
+            while ((value = inputStream.read()) != -1) {
+                outputStream.write(value);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void tryWithResources() {
