@@ -2,6 +2,7 @@ package Lesson19.IO;
 
 
 import Lesson20.Car;
+import Lesson20.Tenant;
 import Lesson8.hierarchy.Person;
 
 import java.io.*;
@@ -23,11 +24,48 @@ public class IoMain {
         //dataOutputStream();
         //primitivesExample();
         //objectExample();
-        propertiesExample();
+        //propertiesExample();
+        //writeObjectExample();
+/*
+        Person ivan = new Person("Ivan");
+        Car myCar = new Car("BMW", 1985, ivan);
+        myCar.setTenant(new Tenant("Nikolay"));
 
+        save(myCar);
+         myCar = load();
+*/
+        Car deserializedCar=load();
+        System.out.println(deserializedCar);
+      //  System.out.println(deserializedCar==myCar);
+
+       // System.out.println(myCar);
+    }
+
+    public static void save(Car car) {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("myFolder/car.dat"))) {
-            Car myCar = new Car("BNW", 1985, new Person("Vasya"));
-           myCar.setRentor(new Reader("Nikilay"));
+            //хочу записать сайкар
+
+            outputStream.writeObject(car);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Car load() {
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("myFolder/car.dat"))) {
+            return (Car) inputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void writeObjectExample() {
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("myFolder/car.dat"))) {
+            Car myCar = new Car("BMW", 1985, new Person("Ivan"));
+            myCar.setTenant(new Tenant("Nikolay"));
+            //хочу записать сайкар
             outputStream.writeObject(myCar);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -38,7 +76,6 @@ public class IoMain {
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("myFolder/car.dat"))) {
             Car myCar = (Car) inputStream.readObject();
             System.out.println(myCar);
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

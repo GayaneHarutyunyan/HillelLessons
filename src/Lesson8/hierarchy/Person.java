@@ -1,22 +1,25 @@
 package Lesson8.hierarchy;
 
+import Lesson20.Car;
+
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * Created by MBCNEWMAIN on 04.03.2016.
  */
 public class Person extends Object implements Serializable {
     private String name;
+    private Car car;
 
 
     @Deprecated
     public Person() {
-
+        System.out.println("in default");
     }
 
     /**
      * this constructor creates person with name
+     *
      * @param name person's name
      */
     public Person(String name) {
@@ -24,11 +27,24 @@ public class Person extends Object implements Serializable {
     }
 
     public String getName() {
+        System.out.println(" in Person constructor with one parameter");
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public boolean hasCat() {
+        return car != null;
     }
 
     public void greeting() {
