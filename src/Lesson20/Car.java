@@ -9,17 +9,16 @@ import java.io.Serializable;
  * Created by User on 19.04.2016.
  */
 public class Car implements Serializable {
-    private static final long serialVersionUID = 2584865176176401432L;
+    private static final long serialVersionUID = 1;
     private final String brand;
-    private final int year;
     private final Person owner;
+    private final int year2;
     private transient Tenant tenant;
 
-
     public Car(String brand, int year, Person owner) {
-        System.out.println(" in car constructor with three parameters");
+        System.out.println("in car constructor with three parameters");
         this.brand = brand;
-        this.year = year;
+        this.year2 = year;
         this.owner = owner;
     }
 
@@ -31,10 +30,9 @@ public class Car implements Serializable {
     public String toString() {
         return "Car{" +
                 "brand='" + brand + '\'' +
-                ", year=" + year +
+                ", year2=" + year2 +
                 ", owner=" + owner +
-                ", rentor=" + tenant +
+                ", tenant=" + tenant +
                 '}';
     }
-
 }

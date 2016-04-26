@@ -26,20 +26,18 @@ public class IoMain {
         //objectExample();
         //propertiesExample();
         //writeObjectExample();
-/*
-        Person ivan = new Person("Ivan");
+/*        Person ivan = new Person("Ivan");
         Car myCar = new Car("BMW", 1985, ivan);
+        ivan.setCar(myCar);
         myCar.setTenant(new Tenant("Nikolay"));
-
         save(myCar);
-         myCar = load();
 */
-        Car deserializedCar=load();
-        System.out.println(deserializedCar);
-      //  System.out.println(deserializedCar==myCar);
 
-       // System.out.println(myCar);
-    }
+            Car deserializedCar = load();
+
+            System.out.println(deserializedCar);
+            // System.out.println(deserializedCar == myCar);
+        }
 
     public static void save(Car car) {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("myFolder/car.dat"))) {

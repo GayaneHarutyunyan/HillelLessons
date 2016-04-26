@@ -17,5 +17,4 @@ public class Tenant {
                 "name='" + name + '\'' +
                 '}';
     }
-
 }

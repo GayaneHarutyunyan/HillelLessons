@@ -7,11 +7,11 @@ import java.util.Scanner;
 
 public class Client {
     public static void main(String[] args) {
-        new Client().start();
+            new Client().start();
+        }
 
 
-    }
-
+/**
     public void start() {
         //нужно передть айпи адресс и порт
         try {
@@ -24,6 +24,7 @@ public class Client {
         }
     }
 
+
     public void startWriter(OutputStream outputStream) {
         try {
             start(new FileOutputStream("sadf"));
@@ -32,6 +33,7 @@ public class Client {
         }
     }
 
+
     public void start(OutputStream outputStream) {
         //PrintWriter примет от пользователя обьект socket.getOutputStream() вернет нам байт
 
@@ -39,32 +41,26 @@ public class Client {
         writer.print("hello");
 
     }
+*/
 
-    public void start1() {
-
+    public void start() {
         Scanner scanner = new Scanner(System.in);
-
         while (true) {
-            scanner.next();
-            String message = scanner.next();
+            String message = scanner.nextLine();
             if (message.equals("exit")) {
                 break;
             }
-            Send(message);
+            send(message);
         }
     }
-
-    private void Send(String message) {
-
+    private void send(String message) {
         try (Socket socket = new Socket("192.168.1.111", 3502);
              PrintWriter writer = new PrintWriter(socket.getOutputStream())) {
 
             writer.print(message);
             writer.flush();
-        } catch (IOException e1) {
-            e1.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
-
-
