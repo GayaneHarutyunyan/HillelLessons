@@ -1,7 +1,5 @@
 package lesson22;
 
-import Lesson21.sockets.Client;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -23,12 +21,11 @@ public class MultithreadedServer {
     public void start() {
         try {
             while (true) {
-
                 Socket socket = serverSocket.accept();
                 MessageHandler handler = new MessageHandler(socket);
                 Thread thread = new Thread(handler);
                 String threadName = Thread.currentThread().getName();
-                System.out.println(threadName + ": created " + thread.getName());  //name potoka Servera
+                System.out.println(threadName + ": created " + thread.getName());
                 thread.start();
             }
         } catch (IOException e) {
@@ -37,9 +34,6 @@ public class MultithreadedServer {
     }
 
     public static void main(String[] args) {
-
-
-        new Client().start();
+        new MultithreadedServer().start();
     }
 }
-

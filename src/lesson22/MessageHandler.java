@@ -13,7 +13,6 @@ public class MessageHandler implements Runnable {
         this.socket = socket;
     }
 
-
     @Override
     public void run() {
         try (Socket socket1 = this.socket;
@@ -22,15 +21,12 @@ public class MessageHandler implements Runnable {
             while (true) {
                 String message = reader.readLine();
                 if (message != null) {
-                    break;
+                    String threadName = Thread.currentThread().getName();
+                    System.out.println(threadName + ": " + message);
                 }
-                String threaName = Thread.currentThread().getName();
-                System.out.println(threaName + ": " + message);
             }
-
         } catch (IOException ignored) {
-            ignored.printStackTrace();
+            System.out.println(ignored.getMessage());
         }
-        System.out.println("handler");
     }
 }

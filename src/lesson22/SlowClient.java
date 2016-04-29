@@ -1,6 +1,5 @@
 package lesson22;
 
-import Lesson21.sockets.Client;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,22 +14,22 @@ public class SlowClient {
 
     public SlowClient() {
         try {
-            socket = new Socket("192.168.1.111", 3502);
+            socket = new Socket("127.0.0.1", 3502);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void strat() {
-
+    public void start() {
         try (PrintWriter writer = new PrintWriter(socket.getOutputStream());
              Scanner scanner = new Scanner(System.in)) {
+
             while (true) {
                 String message = scanner.nextLine();
                 if (message.equals("exit")) {
                     break;
                 }
-                writer.print(message);
+                writer.println(message);
                 writer.flush();
             }
         } catch (IOException e) {
@@ -39,6 +38,6 @@ public class SlowClient {
     }
 
     public static void main(String[] args) {
-        new Client().start();
+        new SlowClient().start();
     }
 }
