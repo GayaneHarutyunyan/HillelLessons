@@ -16,7 +16,7 @@ public class GenericsMain {
 
         Employee employee1 = employee.get(0);
 
-        employee1.getPosition();
+     //   employee1.getPosition();
 
     }
 }
