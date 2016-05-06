@@ -17,15 +17,15 @@ public class Bank {
         }
     }
 
-    public void check() {
+    public synchronized void check() {
         String message = "";
-        synchronized (this) {
-            if (account1 + account2 != 20_000_000) {
-                message = ("Something wrong happened");
-            }
-            message += ("Account1 " + account1);
-            message += ("Account2 " + account2);
+
+        if (account1 + account2 != 20_000_000) {
+            message = "Something wrong happened!";
         }
+        message += " Account1: " + account1;
+        message += " Account2: " + account2;
+
         System.out.println(message);
     }
 }
