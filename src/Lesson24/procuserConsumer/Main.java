@@ -5,21 +5,20 @@ package Lesson24.procuserConsumer;
  */
 public class Main {
     public static void main(String[] args) {
-        Bucket bucket = new Bucket();
+        Bucket bucket = new Bucket(123);
         Thread consumerThread = new Thread(new Consumer(bucket));
         Thread producerThread = new Thread(new Producer(bucket));
+
+        consumerThread.start();
+        producerThread.start();
 
         try {
             Thread.sleep(1000);
         } catch (InterruptedException ignored) {
-
         }
-        consumerThread.start();
-        producerThread.start();
 
         consumerThread.interrupt();
         producerThread.interrupt();
-        //  System.out.println("all thread are stopped");
 
         try {
             consumerThread.join();
@@ -33,7 +32,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        System.out.println("all thread are stopped");
+        System.out.println("all threads are stopped");
         System.out.println(bucket);
     }
 }

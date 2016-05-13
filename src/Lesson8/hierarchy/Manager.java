@@ -9,13 +9,10 @@ public class Manager extends Employee {
     //String position;
 
     public void fire(Employee employee) {
-        System.out.println(employee.position + " " + employee.getName() + " fired by "+" " +getName());
+        System.out.println(employee.position + " " + employee.getName() + " fired by " + position + " " + getName());
     }
-    public String getName(){
 
-        return super.getName().toUpperCase();
-    }
     public void greeting(){
-        System.out.println("Hello, I'm manager my name is " + getName());
+        System.out.println("Hello, I'm a manager. My name is " + getName());
     }
 }

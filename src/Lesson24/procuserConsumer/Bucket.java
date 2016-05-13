@@ -4,23 +4,31 @@ public class Bucket {
     private int counter;
     private long changesCounter;
 
-    public synchronized void get() {
-        while (counter <= 0) {
-            try {
-                wait();
-            } catch (InterruptedException ignored) {
-                Thread.currentThread().interrupt();
-                return;
+    private final int someNumber;
+
+    public Bucket(int someNumber) {
+        this.someNumber = someNumber;
+    }
+
+    public void get() {
+        synchronized (this) {
+            while (counter <= 0) {
+                try {
+                    wait();
+                } catch (InterruptedException ignored) {
+                    Thread.currentThread().interrupt();
+                    return;
+                }
             }
+            counter--;
+            changesCounter++;
+            notifyAll();
+            check();
         }
-        counter--;
-        changesCounter++;
-        notifyAll();
-        check();
     }
 
     public synchronized void put() {
-        if (counter >= 1000) {
+        while (counter >= 1000){
             try {
                 wait();
             } catch (InterruptedException ignored) {
@@ -34,18 +42,21 @@ public class Bucket {
         check();
     }
 
-
-    private void check() {
-        if (counter < 0 || counter > 1000) {
-            System.out.println("error: counter" + counter);
+    public synchronized void check(){
+        if(counter < 0 || counter > 1000){
+            System.out.println("error: counter = " + counter);
         }
+    }
+
+    public int getSomeNumber() {
+        return someNumber;
     }
 
     @Override
     public String toString() {
         return "Bucket{" +
-                " counter " + counter +
-                " changesCounter " + changesCounter +
-                "}";
+                "counter=" + counter +
+                ", changesCounter=" + changesCounter +
+                '}';
     }
 }

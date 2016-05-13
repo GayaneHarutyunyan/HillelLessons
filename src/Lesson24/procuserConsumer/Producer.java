@@ -10,8 +10,8 @@ public class Producer implements Runnable{
         this.bucket = bucket;
     }
 
-    public void run() {
-        while (!Thread.currentThread().isInterrupted()) {
+    public void run(){
+        while(!Thread.currentThread().isInterrupted()){
             bucket.put();
         }
     }
