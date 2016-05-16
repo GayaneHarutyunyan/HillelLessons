@@ -2,16 +2,12 @@ package Lesson25.generics;
 
 import Lesson8.hierarchy.Person;
 
-import java.util.Collection;
 import java.util.Comparator;
 
-/**
- * Created by User on 13.05.2016.
- */
-public class Personcomparator implements Comparator {
 
+public class PersonComparator implements Comparator<Person> {
     @Override
-    public int compare(Object o1, Object o2) {
+    public int compare(Person o1, Person o2) {
 
         return 0;
     }

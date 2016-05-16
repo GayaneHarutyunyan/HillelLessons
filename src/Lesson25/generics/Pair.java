@@ -1,19 +1,19 @@
 package Lesson25.generics;
 
-public class Pair<T> {
-    T first;
-    T second;
+public class Pair<K, V> {
+    private K first;
+    private V second;
 
-    public Pair(T first, T second) {
+    public Pair(K first, V second) {
         this.first = first;
         this.second = second;
     }
 
-    public T getSecond() {
-        return second;
+    public K getFirst() {
+        return first;
     }
 
-    public T getFirst() {
-        return first;
+    public V getSecond() {
+        return second;
     }
 }
