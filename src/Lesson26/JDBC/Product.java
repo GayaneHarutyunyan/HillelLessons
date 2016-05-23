@@ -1,7 +1,6 @@
 package Lesson26.JDBC;
 
 public class Product {
-
     private int id;
     private String name;
     private String category;
@@ -30,12 +29,12 @@ public class Product {
         this.name = name;
     }
 
-    public String getCataegory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCataegory(String cataegory) {
-        this.category = cataegory;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public int getPrice() {
@@ -49,23 +48,23 @@ public class Product {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Product)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Product product = (Product) o;
 
-        if (getId() != product.getId()) return false;
-        if (getPrice() != product.getPrice()) return false;
-        if (getName() != null ? !getName().equals(product.getName()) : product.getName() != null) return false;
-        return !(getCataegory() != null ? !getCataegory().equals(product.getCataegory()) : product.getCataegory() != null);
+        if (id != product.id) return false;
+        if (price != product.price) return false;
+        if (name != null ? !name.equals(product.name) : product.name != null) return false;
+        return category != null ? category.equals(product.category) : product.category == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = getId();
-        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
-        result = 31 * result + (getCataegory() != null ? getCataegory().hashCode() : 0);
-        result = 31 * result + getPrice();
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (category != null ? category.hashCode() : 0);
+        result = 31 * result + price;
         return result;
     }
 
@@ -74,7 +73,7 @@ public class Product {
         return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", cataegory='" + category + '\'' +
+                ", category='" + category + '\'' +
                 ", price=" + price +
                 '}';
     }
