@@ -1,5 +1,6 @@
 package Lesson28.factory.patterns;
 
+import Lesson28.factory.patterns.enums.PizzaType;
 import Lesson28.factory.patterns.factory.PizzaFactory;
 import Lesson28.factory.patterns.pizza.Pizza;
 
@@ -14,7 +15,7 @@ public class PizzaStore {
         this.pizzaFactory = pizzaFactory;
     }
 
-    public Pizza order(String type) {
+    public Pizza order(PizzaType type) {
         Pizza pizza;
 
         pizza = pizzaFactory.createPizza(type);

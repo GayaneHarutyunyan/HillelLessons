@@ -1,5 +1,6 @@
 package Lesson28.factory.patterns.factory;
 
+import Lesson28.factory.patterns.enums.PizzaType;
 import Lesson28.factory.patterns.pizza.NewYorkCheesPizza;
 import Lesson28.factory.patterns.pizza.NewYorkMeetPizza;
 import Lesson28.factory.patterns.pizza.Pizza;
@@ -9,12 +10,12 @@ import Lesson28.factory.patterns.pizza.Pizza;
  */
 public class NyPizzaFactory implements PizzaFactory {
     @Override
-    public Pizza createPizza(String type) {
+    public Pizza createPizza(PizzaType type) {
         switch (type) {
-            case "Cheese":
+            case CHEESE:
                 return new NewYorkCheesPizza();
 
-            case "Meat":
+            case MEAT:
                 return new NewYorkMeetPizza();
 
             default:

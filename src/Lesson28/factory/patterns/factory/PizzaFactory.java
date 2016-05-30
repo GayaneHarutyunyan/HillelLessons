@@ -1,5 +1,6 @@
 package Lesson28.factory.patterns.factory;
 
+import Lesson28.factory.patterns.enums.PizzaType;
 import Lesson28.factory.patterns.pizza.Pizza;
 
 /**
@@ -7,5 +8,5 @@ import Lesson28.factory.patterns.pizza.Pizza;
  */
 public interface PizzaFactory {
 
-    Pizza createPizza(String type);
+    Pizza createPizza(PizzaType type);
 }
