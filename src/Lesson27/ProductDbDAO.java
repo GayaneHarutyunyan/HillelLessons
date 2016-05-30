@@ -9,13 +9,14 @@ import java.util.List;
 /**
  * Created by User on 23.05.2016.
  */
-public class ProductDbDAO implements ProductDAO {
-    private Connection connection = null;
+public class ProductDbDAO implements DAO<Product> {
+    private Connection connection;
 
     public ProductDbDAO() {
         System.setProperty("jdbc.drivers", "org.postgresql.Driver");
+
         try {
-            Connection connection = DriverManager.getConnection(
+            connection = DriverManager.getConnection(
                     "jdbc:postgresql://localhost:5432/postgres",
                     "postgres",
                     "postgres");
@@ -25,15 +26,34 @@ public class ProductDbDAO implements ProductDAO {
     }
 
     @Override
-    public List<Product> findAll() {
+    public boolean create(Product product) {
+        String sql =
+                " INSERT INTO public.\"Product\" (id, name, category, proce)" +
+                        " VALUES (?, ?, ?, ?)";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, product.getId());
+            statement.setString(2, product.getName());
+            statement.setString(3, product.getCategory());
+            statement.setInt(4, product.getPrice());
 
+            int rowsInserted = statement.executeUpdate();
+
+            statement.close();
+            return rowsInserted == 1;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<Product> findAll() {
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT id,name,category, proce From public.\"Product\" ";
+            String sql = "SELECT id, name, category, proce FROM product";
             ResultSet resultSet = statement.executeQuery(sql);
-
             List<Product> products = new ArrayList<>();
-
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
@@ -56,86 +76,61 @@ public class ProductDbDAO implements ProductDAO {
             Statement statement = connection.createStatement();
             String sql =
                     "SELECT name, category, proce " +
-                            " FROM public.\"Product\"" +
+                            " FROM product" +
                             " WHERE id=" + id;
             ResultSet resultSet = statement.executeQuery(sql);
             Product result = null;
             while (resultSet.next()) {
                 String name = resultSet.getString("name");
                 String category = resultSet.getString("category");
-                int price = resultSet.getInt("proce");
+                int price = resultSet.getInt("price");
                 result = new Product(id, name, category, price);
             }
             resultSet.close();
             statement.close();
             return result;
-
-        } catch (SQLException e) {
+        }catch (SQLException e){
             throw new RuntimeException(e);
         }
-    }
-
-    @Override
-    public boolean create(Product product) {
-        String sql =
-                "INSERT INTO public.\"Product\" (id,name, category, proce) values(?,?,?,?)";
-
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, product.getId());
-            preparedStatement.setString(2, product.getName());
-            preparedStatement.setString(3, product.getCategory());
-            preparedStatement.setInt(4, product.getPrice());
-            int rows = preparedStatement.executeUpdate();
-
-            preparedStatement.close();
-            return rows == 1;
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
     }
 
     @Override
     public void update(Product product) {
 
         try {
-            // Statement statement = connection.createStatement();
-            String sql = "UPDATE public.\"Product\" SET name = ?, category = ?, proce = ? Where id = ?";
+            String sql =
+                    "UPDATE public.\"Product\" SET proce = ?, name = ?, category = ? " +
+                            " WHERE id = ? ";
 
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(sql);
 
-            preparedStatement.setInt(1, product.getPrice());
-            preparedStatement.setString(2, product.getName());
-            preparedStatement.setString(3, product.getCategory());
-            preparedStatement.setInt(4, product.getId());
+            statement.setInt(1, product.getPrice());
+            statement.setString(2, product.getName());
+            statement.setString(3, product.getCategory());
+            statement.setInt(4, product.getId());
 
-            preparedStatement.executeUpdate(sql);
+            statement.executeUpdate();
 
-            preparedStatement.close();
+            statement.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @Override
     public void delete(Product product) {
         try {
-            // Statement statement = connection.createStatement();
-            String sql = "delete from \"Product\" Where id = ?";
+            String sql =
+                    "DELETE FROM public.\"Product\" WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, product.getId());
 
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, product.getId());
-            int rows = preparedStatement.executeUpdate();
+            int rowsDeleted = statement.executeUpdate();
 
-            System.out.println("rows delete " + rows);
-
-            preparedStatement.close();
+            System.out.println("Rows deleted: " + rowsDeleted);
+            statement.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
 }

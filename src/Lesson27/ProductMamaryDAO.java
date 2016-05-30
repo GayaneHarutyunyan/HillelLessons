@@ -10,24 +10,23 @@ import java.util.Map;
 /**
  * Created by User on 23.05.2016.
  */
-public class ProductMamaryDAO implements ProductDAO {
+public class ProductMamaryDAO  implements DAO<Product> {
     private Map<Integer, Product> products = new HashMap<>();
+
+    @Override
+    public boolean create(Product product) {
+        products.put(product.getId(), product);
+        return true;
+    }
 
     @Override
     public List<Product> findAll() {
         return new ArrayList<>(products.values());
-
     }
 
     @Override
     public Product findById(int id) {
         return products.get(id);
-    }
-
-    @Override
-    public boolean create(Product product) {
-        products.put(product.getId(), product);
-        return false;
     }
 
     @Override
