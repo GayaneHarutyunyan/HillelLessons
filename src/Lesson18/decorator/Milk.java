@@ -1,4 +1,4 @@
-package Lasson18.decorator;
+package Lesson18.decorator;
 
 
 public class Milk extends BeverageDecorator {

@@ -1,4 +1,4 @@
-package Lasson18.decorator;
+package Lesson18.decorator;
 
 /**
  * Created by User on 12.04.2016.
