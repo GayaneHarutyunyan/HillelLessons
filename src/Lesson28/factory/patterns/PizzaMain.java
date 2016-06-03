@@ -1,17 +1,26 @@
 package Lesson28.factory.patterns;
 
 import Lesson28.factory.patterns.enums.PizzaType;
-import Lesson28.factory.patterns.factory.ChPizzaFactory;
-import Lesson28.factory.patterns.factory.NyPizzaFactory;
+import Lesson28.factory.patterns.factory.factory.*;
 
 /**
  * Created by User on 30.05.2016.
  */
 public class PizzaMain {
     public static void main(String[] args) {
-        PizzaStore nyPizzaStore = new PizzaStore(new NyPizzaFactory());
+
+        String stringPizzaType = "meat";
+        PizzaType truePizzaType = PizzaType.of(stringPizzaType);
+
+        System.out.println(truePizzaType.getName());
+
+
+        PizzaComponentsFactory nyComponentFactory = new NyPizzaComponentFactory();
+        PizzaStore nyPizzaStore = new PizzaStore(new NyPizzaFactory(nyComponentFactory));
         nyPizzaStore.order(PizzaType.CHEESE);
-        PizzaStore chPizzaStore = new PizzaStore(new ChPizzaFactory());
+
+        PizzaComponentsFactory chComponentFactory = new ChPizzaComponentFactory();
+        PizzaStore chPizzaStore = new PizzaStore(new ChPizzaFactory(chComponentFactory));
         chPizzaStore.order(PizzaType.MEAT);
     }
 }
