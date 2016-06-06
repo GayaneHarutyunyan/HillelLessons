@@ -5,9 +5,10 @@ package Lesson29.patterns.singleton;
  */
 public interface God {
 
-    void crete();
-
+    void create();
     void heal();
 
     String getName();
+
+    void resurrect();
 }

@@ -5,6 +5,7 @@ package Lesson29.patterns.singleton;
  */
 public class Beliver {
 
+
     //статиный метод всегда ставитая наверху
     static God god;
     String name;
@@ -18,6 +19,6 @@ public class Beliver {
 */
     @Override
     public String toString() {
-        return "My name is " + name + " I believe in  " + god.getName();
+        return "my name is " + name + " I believe in " + god.getName();
     }
 }

@@ -3,11 +3,10 @@ package Lesson29.patterns.singleton;
 /**
  * Created by User on 03.06.2016.
  */
-public class GodExtracter implements Runnable {
-    TheGod god;
-
+public class GodExtracter implements Runnable{
+    TheGodSingleton god;
     @Override
     public void run() {
-        god = TheGod.getInstance();
+        god = TheGodSingleton.getInstance();
     }
 }
