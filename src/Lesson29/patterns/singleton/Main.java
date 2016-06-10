@@ -4,14 +4,15 @@ package Lesson29.patterns.singleton;
  * Created by User on 03.06.2016.
  */
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
 
+        public static void main(String[] args) throws InterruptedException {
+/*
         TheGodSingleton god1;
         TheGodSingleton god2;
         int i = 0;
         do {
-            GodExtracter extractor1 = new GodExtracter();
-            GodExtracter extractor2 = new GodExtracter();
+            GodExtractor extractor1 = new GodExtractor();
+            GodExtractor extractor2 = new GodExtractor();
             Thread thread1 = new Thread(extractor1);
             Thread thread2 = new Thread(extractor2);
             thread1.start();
@@ -21,46 +22,45 @@ public class Main {
             god1 = extractor1.god;
             god2 = extractor2.god;
             i++;
-           // TheGodSingleton.clear();
+            TheGodSingleton.clear();
         } while (god1 == god2);
-
         System.out.println("Heretic! attempts: " + i);
-
-    }
-
-    private static void lazyExample() throws InterruptedException {
-        System.out.println("many time...");
-        TheGodSingleton.prophet();
-
-        Thread.sleep(3000);
-
-        if (Math.random() < 0.5) {
-            return;
+*/
         }
-        System.out.println("using instances");
-        God theGod1 = TheGodSingleton.getInstance();
-        God theGod2 = TheGodSingleton.getInstance();
-        God theGod3 = TheGodSingleton.getInstance();
+
+        private static void lazyExample() throws InterruptedException {
+            System.out.println("many time...");
+            TheGodSingleton.prophet();
+
+            Thread.sleep(3000);
+
+            if (Math.random() < 0.5) {
+                return;
+            }
+            System.out.println("using instances");
+            God theGod1 = TheGodSingleton.getInstance();
+            God theGod2 = TheGodSingleton.getInstance();
+            God theGod3 = TheGodSingleton.getInstance();
+        }
+
+        private static void commonReligiousQuestions() {
+            God theGod = TheGodSingleton.getInstance();
+            God krishna = new Krishina();
+
+            Beliver.god = theGod;
+
+            Beliver ivan = new Beliver();
+            ivan.name = "Ivan";
+
+            Beliver petro = new Beliver();
+            petro.name = "Petro";
+
+            System.out.println(ivan);
+            System.out.println(petro);
+
+            Beliver.god = krishna;
+
+            System.out.println(ivan);
+            System.out.println(petro);
+        }
     }
-
-    private static void commonReligiousQuestions() {
-        God theGod = TheGodSingleton.getInstance();
-        God krishna = new Krishina();
-
-        Beliver.god = theGod;
-
-        Beliver ivan = new Beliver();
-        ivan.name = "Ivan";
-
-        Beliver petro = new Beliver();
-        petro.name = "Petro";
-
-        System.out.println(ivan);
-        System.out.println(petro);
-
-        Beliver.god = krishna;
-
-        System.out.println(ivan);
-        System.out.println(petro);
-    }
-}

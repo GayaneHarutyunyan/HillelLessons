@@ -32,11 +32,6 @@ public class TheGodSingleton implements God {
         return "God";
     }
 
-    @Override
-    public void resurrect() {
-
-    }
-
     public static void prophet() {
         System.out.println("Jesus");
     }
