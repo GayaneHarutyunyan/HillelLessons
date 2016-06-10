@@ -1,9 +1,12 @@
 package Lesson30;
 
-import Lesson11collections.CatComparator;
 import Lesson29.patterns.singleton.God;
 import Lesson29.patterns.singleton.TheGodSingleton;
-import javafx.print.Collation;
+import Lesson31.Citizen;
+import Lesson31.Flat;
+import Lesson31.House;
+import Lesson31.Passport;
+
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -17,98 +20,116 @@ public class Java8Example {
 
     public static void main(String[] args) {
         God god = TheGodSingleton.getInstance();
-        god.resurrect();
-        //defaultSortExample(apples);
-        //functionalInterface(apples);
-        //methodReferenceExample(apples);
-
+        god.resurect();
 
         List<Apple> apples = new ArrayList<>();
-        apples.add(new Apple(200, "RED", 15));
-        apples.add(new Apple(250, "green", 16));
-        apples.add(new Apple(300, "blue", 18));
-        apples.add(new Apple(350, "yellow", 20));
-        apples.add(new Apple(400, "bleak", 5));
+        apples.add(new Apple(200, "Red", 15));
+        apples.add(new Apple(250, "Green", 16));
+        apples.add(new Apple(100, "Green", 11));
+        apples.add(new Apple(250, "Yellow", 15));
+/*
+        Optional.empty().get();
+        System.out.println("get on empty optional completed ");
+*/
+        Optional<String> someGenerate = generate();
 
-        print(apples, apple -> String.valueOf(apple.getPrice()));
-        Function<Apple, String> appleStringFunction = apple1 -> apple1.getColor();
-        print(apples, appleStringFunction);
 
+        if (someGenerate.isPresent()) {
+            System.out.println(someGenerate);
+        }
+      someGenerate.ifPresent(System.out::println);
 
+        House house=new House();
+        Optional<Passport> mightBePassport=
+                house.getFlat().flatMap(Flat::getcitizen)
+                .flatMap(Citizen::getPassport);
+    }
+
+    static Optional<String> generate() {
+        if (Math.random() < 0.65) {
+            return Optional.of("Asd");
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    private static void functionsComposition() {
+        String message = "My name is Max? I use java";
+//она принимает Стринг и выходит из него стринг
+        /*
+        UnaryOperator<String> header = m -> "hello, " + m;
+        UnaryOperator<String> corrector = m -> m.replace("java", "Java 8");
+        UnaryOperator<String> footer = m -> m + ". Bye";
+         //System.out.println(footer.apply(corrector.apply(header.apply(message))));
+*/
+        Function<String, String> header = m -> "hello, " + m;
+        Function<String, String> corrector = m -> m.replace("java", "Java 8");
+        Function<String, String> footer = m -> m + ". Bye";
+        Function<String, String> textProcessor = header.andThen(corrector).andThen(footer);
+        textProcessor = footer.compose(corrector).compose(header);
+        message = textProcessor.apply(message);
+        System.out.println(message);
     }
 
     private static void print(List<Apple> apples, Function<Apple, String> appleToString) {
         for (Apple apple : apples) {
             System.out.println(appleToString.apply(apple));
+
         }
     }
 
-    private static List<Apple> select(List<Apple> apples, Predicate<Apple> tester) {
+
+    private static void methodReferenceExample(List<Apple> apples) {
+        Consumer<Apple> applePrinter = System.out::println;
+        apples.forEach(applePrinter);
+    }
+
+    private static void functionalInterfaces(List<Apple> apples) {
+        Predicate<Apple> isGreen = apple -> apple.getColor().equals("Green");
+
+        List<Apple> greenApples = select(apples, isGreen);
+        System.out.println(greenApples);
+
+        Predicate<Apple> isHeavy = apple -> apple.getWeight() > 200;
+
+        List<Apple> heavyApples = select(apples, isHeavy);
+        System.out.println(heavyApples);
+
+        Predicate<Apple> heavyAndGreen = isHeavy.and(isGreen);
+        System.out.println(select(apples, heavyAndGreen));
+    }
+
+    public static List<Apple> select(List<Apple> apples, Predicate<Apple> tester) {
         List<Apple> result = new ArrayList<>();
-        for (Apple appl : apples) {
-            if (tester.test(appl)) {
-                result.add(appl);
+        for (Apple apple : apples) {
+            if (tester.test(apple)) {
+                result.add(apple);
             }
         }
         return result;
     }
 
-    private static void methodReferenceExample(List<Apple> apples) {
-        //  Consumer<Apple> appleConsumer = apple -> System.out.println(apple);
-        Consumer<Apple> appleConsumer = System.out::println;
-        apples.forEach(appleConsumer);
-    }
-
-    private static void functionalInterface(List<Apple> apples) {
-    /*
-            AppleTester greenTester = new AppleTester() {
-                @Override
-                public boolean test(Apple apple) {
-
-                    return apple.getColor().equals("green");
-                }
-            };
-    */
-
-        AppleTester greenTester = apple -> apple.getColor().equals("green");
-
-        Predicate<Apple> isgreen = apple -> apple.getColor().equals("green");
-
-        // List<Apple> greenApple = select(apples, greenTester);
-        List<Apple> greenApple = select(apples, isgreen);
+    private static void defaultSortExample(List<Apple> apples) {
+        Comparator<Apple> byColor = (o1, o2) -> o1.getColor().compareTo(o2.getColor());
 
 
-        System.out.println(greenApple);
+        byColor = Comparator.comparing(Apple::getColor);
+
+        Comparator<Apple> byColorReversed = byColor.reversed();
+
+        Comparator<Apple> byWeight = (o1, o2) -> Integer.compare(o1.getWeight(), o2.getWeight());
+
+        byWeight = Comparator.comparingInt(Apple::getWeight);
+
+        Comparator<Apple> byColorDescAndWeight = byColorReversed.thenComparing(byWeight);
 
 
-        //AppleTester hevyTester = apple -> apple.getWeight() > 200;
+        // Collections.sort(apples, byColor);
+        apples.sort(byColorDescAndWeight);
 
-        Predicate<Apple> isgreenHevy = apple -> apple.getWeight() > 200;
-
-        //   hevyTester.test(new Apple(1, " ", 2));
-        // List<Apple> hevyrApple = select(apples, hevyTester);
-        List<Apple> hevyrApple = select(apples, isgreenHevy);
-        System.out.print(hevyrApple);
-
-        Predicate<Apple> bla = apple -> apple.getWeight() > 200;
-        System.out.println("\n");
-        System.out.println(select(apples, bla));
-    }
-
-    private static void defaultSortEaxmple(List<Apple> apples) {
-        Comparator<Apple> byColl = new Comparator<Apple>() {
-            @Override
-            public int compare(Apple o1, Apple o2) {
-                return o1.getColor().compareTo(o2.getColor());
-
-            }
-
-        };
-        /*
-        Collections.sort(apples, byColl);
         System.out.println(apples);
 
-        apples.sort(byColl);
-    */
     }
+
+
 }

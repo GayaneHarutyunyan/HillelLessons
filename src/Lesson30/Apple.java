@@ -1,10 +1,7 @@
 package Lesson30;
 
-/**
- * Created by User on 06.06.2016.
- */
-public class Apple {
 
+public class Apple {
     private int weight;
     private String color;
     private int price;
@@ -19,24 +16,12 @@ public class Apple {
         return weight;
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
-    }
-
     public String getColor() {
         return color;
     }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
-
     public int getPrice() {
         return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     @Override

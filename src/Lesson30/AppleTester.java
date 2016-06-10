@@ -5,6 +5,5 @@ package Lesson30;
  */
 @FunctionalInterface
 public interface AppleTester {
-
     boolean test(Apple apple);
 }
