@@ -21,6 +21,7 @@ public class Apple {
     }
 
     public int getPrice() {
+        System.out.println("price");
         return price;
     }
 
@@ -31,5 +32,14 @@ public class Apple {
                 ", color='" + color + '\'' +
                 ", price=" + price +
                 '}';
+    }
+
+    public boolean isGreen(){
+        System.out.println("is green called");
+        return color.equals("Green");
+    }
+
+    public boolean isHeavy(){
+        return weight>200;
     }
 }

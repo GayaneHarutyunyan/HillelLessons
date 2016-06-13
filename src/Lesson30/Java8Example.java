@@ -27,57 +27,73 @@ public class Java8Example {
         apples.add(new Apple(250, "Green", 16));
         apples.add(new Apple(100, "Green", 11));
         apples.add(new Apple(250, "Yellow", 15));
-/*
-        Optional.empty().get();
-        System.out.println("get on empty optional completed ");
-*/
-        Optional<String> someGenerate = generate();
+        apples.add(new Apple(100, "Green", 17));
 
-
-        if (someGenerate.isPresent()) {
-            System.out.println(someGenerate);
-        }
-      someGenerate.ifPresent(System.out::println);
-
-        House house=new House();
-        Optional<Passport> mightBePassport=
-                house.getFlat().flatMap(Flat::getcitizen)
-                .flatMap(Citizen::getPassport);
+        optionalAndClosure();
+        optionalWithFlatMap();
     }
 
-    static Optional<String> generate() {
-        if (Math.random() < 0.65) {
+    private static void optionalAndClosure() {
+    /*Optional.empty().get();
+    System.out.println("get on empty optional completed");*/
+
+        Optional<String> someString = generate();
+
+        if(someString.isPresent()) {
+            System.out.println(someString.get());
+        }
+
+        String message = " this is closure";
+
+        someString.ifPresent(s -> System.out.println(s + message));
+    }
+
+    private static void optionalWithFlatMap() {
+        House house = new House();
+
+        Optional<Passport> mightBePassport =
+                house.getFlat()
+                        .flatMap(Flat::getCitizen)
+                        .flatMap(Citizen::getPassport);
+    }
+
+    static Optional<String> generate(){
+        if(Math.random() < 0.65){
             return Optional.of("Asd");
-        } else {
+        }else {
             return Optional.empty();
         }
     }
 
     private static void functionsComposition() {
-        String message = "My name is Max? I use java";
-//она принимает Стринг и выходит из него стринг
-        /*
-        UnaryOperator<String> header = m -> "hello, " + m;
-        UnaryOperator<String> corrector = m -> m.replace("java", "Java 8");
-        UnaryOperator<String> footer = m -> m + ". Bye";
-         //System.out.println(footer.apply(corrector.apply(header.apply(message))));
-*/
-        Function<String, String> header = m -> "hello, " + m;
+        String message = "My name is Max, I use java";
+
+        Function<String, String> header = m -> "Hello, " + m;
         Function<String, String> corrector = m -> m.replace("java", "Java 8");
         Function<String, String> footer = m -> m + ". Bye";
+
         Function<String, String> textProcessor = header.andThen(corrector).andThen(footer);
         textProcessor = footer.compose(corrector).compose(header);
+
+        //message = footer.apply(corrector.apply(header.apply(message)));
         message = textProcessor.apply(message);
+
         System.out.println(message);
+    }
+
+    private static void functionsExample(List<Apple> apples) {
+        print(apples, apple -> String.valueOf(apple.getPrice()));
+
+        Function<Apple, String> appleStringFunction = apple -> apple.getColor();
+
+        print(apples, appleStringFunction);
     }
 
     private static void print(List<Apple> apples, Function<Apple, String> appleToString) {
         for (Apple apple : apples) {
             System.out.println(appleToString.apply(apple));
-
         }
     }
-
 
     private static void methodReferenceExample(List<Apple> apples) {
         Consumer<Apple> applePrinter = System.out::println;
@@ -110,8 +126,8 @@ public class Java8Example {
     }
 
     private static void defaultSortExample(List<Apple> apples) {
-        Comparator<Apple> byColor = (o1, o2) -> o1.getColor().compareTo(o2.getColor());
 
+        Comparator<Apple> byColor = (o1, o2) -> o1.getColor().compareTo(o2.getColor());
 
         byColor = Comparator.comparing(Apple::getColor);
 
@@ -124,12 +140,11 @@ public class Java8Example {
         Comparator<Apple> byColorDescAndWeight = byColorReversed.thenComparing(byWeight);
 
 
-        // Collections.sort(apples, byColor);
+        //Collections.sort(apples, byColor);
         apples.sort(byColorDescAndWeight);
 
         System.out.println(apples);
 
     }
-
 
 }
